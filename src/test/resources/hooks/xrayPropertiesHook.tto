@@ -1,0 +1,6 @@
+<lifecycle-hook id="xrayPropertiesHook" objects="${childrenOfXmlType('sui:scenario')}" to="execute">
+
+    <property name="xray:scenario-comment" value="${@deviceListData('seleniumVideoUrl')}" if="${selectedDevice?starts_with('remote')}"/>
+    <property name="xray:scenario-comment" value="Local Execution -> no video url was created" if="${selectedDevice?starts_with('local')}"/>
+
+</lifecycle-hook>

@@ -1,0 +1,6 @@
+<lifecycle-hook id="onFailureHook" objects="${childrenOfXmlType('sui:scenario')}" to="error">
+
+    <echo message="+++ onFailureHook was triggered"/>
+    <sui:take-screenshot name="exception" level="scenario"/>
+
+</lifecycle-hook>

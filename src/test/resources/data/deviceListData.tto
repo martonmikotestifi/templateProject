@@ -1,0 +1,77 @@
+<data-configuration id="deviceListData">
+
+    <localChrome selector="${selectedDevice}">
+        <deviceDetails>@chrome()</deviceDetails>
+    </localChrome>
+    <localChromeMaximised selector="${selectedDevice}">
+        <deviceDetails>@chrome({'args':['--start-maximized']})</deviceDetails>
+    </localChromeMaximised>
+    <localChromeIncognito selector="${selectedDevice}">
+        <deviceDetails>@chrome({'args':['--incognito']})</deviceDetails>
+    </localChromeIncognito>
+    <localChromeMaximisedIncognito selector="${selectedDevice}">
+        <deviceDetails>@chrome({'args':['--start-maximized','--incognito']})</deviceDetails>
+    </localChromeMaximisedIncognito>
+
+    <localFirefox selector="${selectedDevice}">
+        <deviceDetails>@firefox()</deviceDetails>
+    </localFirefox>
+    <localFirefoxIncognito selector="${selectedDevice}">
+        <deviceDetails>@firefox({'args':['-private']})</deviceDetails>
+    </localFirefoxIncognito>
+
+    <localNexus6 selector="${selectedDevice}">
+        <deviceDetails>@chrome({'capabilities':{'experimentalOptions':{'mobileEmulation':{'deviceName':'Nexus 6'},'useAutomationExtension':false}}})</deviceDetails>
+    </localNexus6>
+
+    <localWindows selector="${selectedDevice}">
+        <deviceDetails>@win({'capabilities':{'app':@windows('device'),'ms:waitForAppLaunch', '5','ms:experimental-webdriver', true},'url':'http://127.0.0.1:4723'})</deviceDetails>
+    </localWindows>
+
+    <!-- for Remote Execution -->
+
+    <projectId>
+        d6423c2c-28b1-470c-930f-dd357eaa9f32
+    </projectId>
+
+    <seleniumLogUrl>
+        https://us-west-2.console.aws.amazon.com/devicefarm/home?region=eu-west-1#/browser/projects/${@deviceListData('projectId')}/runsselenium/logs
+    </seleniumLogUrl>
+
+    <arnUrl>
+        arn:aws:devicefarm:us-west-2:688173039523:testgrid-project:${@deviceListData('projectId')}
+    </arnUrl>
+
+    <seleniumVideoUrl>
+        https://devicefarm.testifi.io/${@deviceListData('projectId')}/${sessionId!"nosession"}
+    </seleniumVideoUrl>
+
+    <remoteEdge selector="${selectedDevice}">
+        <deviceDetails>@remote({'url':@deviceFarm(@deviceListData('arnUrl')), 'capabilities':{'browserName':'MicrosoftEdge', 'ms:edgeChromium':true}})</deviceDetails>
+    </remoteEdge>
+
+    <remoteChromePreviousVersion selector="${selectedDevice}">
+        <deviceDetails>@remote({'url':@deviceFarm(@deviceListData('arnUrl')), 'capabilities':{'browserName':'chrome','version':'latest-1'}, 'args':['--start-maximized']})</deviceDetails>
+    </remoteChromePreviousVersion>
+    <remoteChrome selector="${selectedDevice}">
+        <deviceDetails>@remote({'url':@deviceFarm(@deviceListData('arnUrl')), 'capabilities':{'browserName':'chrome'}})</deviceDetails>
+    </remoteChrome>
+    <remoteChromeIncognito selector="${selectedDevice}">
+        <deviceDetails>@remote({'url':@deviceFarm(@deviceListData('arnUrl')), 'capabilities':{'browserName':'chrome'}, 'args':['--start-maximized','--incognito']})</deviceDetails>
+    </remoteChromeIncognito>
+    <remoteChromeMaximised selector="${selectedDevice}">
+        <deviceDetails>@remote({'url':@deviceFarm(@deviceListData('arnUrl')), 'capabilities':{'browserName':'chrome', 'aws:maxDurationSecs':2400}, 'args':['--start-maximized']})</deviceDetails>
+    </remoteChromeMaximised>
+
+    <remoteFirefox selector="${selectedDevice}">
+        <deviceDetails>@remote({'url':@deviceFarm(@deviceListData('arnUrl')), 'capabilities':{'browserName':'firefox'}})</deviceDetails>
+    </remoteFirefox>
+    <remoteFirefoxPrivate selector="${selectedDevice}">
+        <deviceDetails>@remote({'url':@deviceFarm(@deviceListData('arnUrl')), 'capabilities':{'browserName':'firefox'}, 'args':['-private']})</deviceDetails>
+    </remoteFirefoxPrivate>
+
+    <remoteNexus6 selector="${selectedDevice}">
+        <deviceDetails>@remote({'url':@deviceFarm(@deviceListData('arnUrl')), 'capabilities':{'experimentalOptions':{'mobileEmulation':{'deviceName':'Nexus 6'}}}})</deviceDetails>
+    </remoteNexus6>
+
+</data-configuration>
